@@ -19,15 +19,15 @@ function Login() {
       email: data.email,
       password: data.password,
     };
-    // console.log(userInfo);
+
     axios
-      .post("/api/user/login", userInfo)
+      .post("/api/user/login", userInfo, { withCredentials: true }) // ✅ Added this option
       .then((response) => {
         if (response.data) {
           toast.success("Login successful");
+          localStorage.setItem("ChatApp", JSON.stringify(response.data));
+          setAuthUser(response.data);
         }
-        localStorage.setItem("ChatApp", JSON.stringify(response.data));
-        setAuthUser(response.data);
       })
       .catch((error) => {
         if (error.response) {
@@ -35,6 +35,7 @@ function Login() {
         }
       });
   };
+
   return (
     <>
       <div className="flex h-screen items-center justify-center">
@@ -71,6 +72,7 @@ function Login() {
               This field is required
             </span>
           )}
+
           {/* Password */}
           <label className="input input-bordered flex items-center gap-2">
             <svg
@@ -97,6 +99,7 @@ function Login() {
               This field is required
             </span>
           )}
+
           {/* Text & Button */}
           <div className="flex justify-between">
             <p>
