@@ -5,10 +5,12 @@ import express from "express";
 const app = express();
 
 const server = http.createServer(app);
+
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://pingup-3pl6.onrender.com",
     methods: ["GET", "POST"],
+    credentials: true, // ✅ Optional but recommended if you're using cookies
   },
 });
 
